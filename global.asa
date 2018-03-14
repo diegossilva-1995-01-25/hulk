@@ -1,0 +1,71 @@
+<!-- METADATA NAME="Microsoft ActiveX Data Objects 2.5 Library" TYPE="TypeLib" UUID="{00000205-0000-0010-8000-00AA006D2EA4}" -->
+<!-- METADATA NAME="Microsoft ADO Ext. 2.5 for DDL and Security" TYPE="TypeLib" UUID="{00000600-0000-0010-8000-00AA006D2EA4}" -->
+<script runat="server" language="vbscript">
+
+' File: global.asa
+'
+' Here we are initializing the timer, defining some constants to be used later
+' and setting a flag requiring to load application.configure.asp.
+'
+' License:
+'
+' The MIT License
+' Copyright (C) 2016 Fabio Zendhi Nagao
+'
+' Permission is hereby granted, free of charge, to any person obtaining a copy
+' of this software and associated documentation files (the "Software"), to deal
+' in the Software without restriction, including without limitation the rights
+' to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+' copies of the Software, and to permit persons to whom the Software is
+' furnished to do so, subject to the following conditions:
+'
+' The above copyright notice and this permission notice shall be included in
+' all copies or substantial portions of the Software.
+'
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+' IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+' FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+' AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+' LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+' OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+' THE SOFTWARE.
+'
+' About:
+'
+'	- Written by Fabio Zendhi Nagao <http://zend.lojcomm.com.br/> @ Nov 2016
+'
+' See also:
+'
+'	<application.configure.asp>
+
+' Subroutine: Application_onStart
+'
+' Define Application constants and load the config.xml data into application configuration.
+'
+sub Application_onStart
+	' Output standards to be used with indentedTransform
+	Application("Xslt.xhtml") = "<xsl:output method='xml' version='1.0' encoding='UTF-8' omit-xml-declaration='yes' doctype-public='-//W3C//DTD XHTML 1.1//EN' doctype-system='http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd' indent='yes'/>"
+	Application("Xslt.text")  = "<xsl:output method='text' version='1.0' encoding='UTF-8' omit-xml-declaration='yes' indent='yes'/>"
+	Application("Xslt.xml")   = "<xsl:output method='xml' version='1.0' encoding='UTF-8' indent='yes'/>"
+
+	' Initial value indicating that the application hasn't been configured yet.
+	Application("isConfigured") = false
+end sub
+
+sub Application_onEnd
+	Application.Contents.removeAll()
+end sub
+
+' Subroutine: Session_onStart
+'
+' In order to compute the execution time of a request, we need to start a timer.
+'
+sub Session_onStart
+	' Required to track the execution time
+	Session("Request.time") = timer
+end sub
+
+sub Session_onEnd
+end sub
+
+</script>
